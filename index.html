@@ -3,18 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
 <title>Coast to Coast — Shared</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  color-scheme:only light;
   --bg:#EDEFEC; --paper:#FFFFFF; --ink:#16212C; --muted:#5B6A71; --line:#D5DBD6;
   --sf:#2E8C9E; --hou:#C4602C; --ny:#26456F; --bos:#9E2A24; --gold:#B4892B;
   --shadow:0 1px 2px rgba(22,33,44,.06),0 8px 24px rgba(22,33,44,.06);
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
   margin:0;background:var(--bg);color:var(--ink);
   font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
@@ -41,6 +43,10 @@ h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
 .route .stop{padding:2px 9px;border-radius:999px;background:rgba(22,33,44,.06)}
 .route .arw{color:var(--muted)}
 .tagline{color:var(--muted);margin-top:14px;font-size:.92rem;max-width:52ch}
+.langlink{position:absolute;top:18px;right:18px;z-index:2;text-decoration:none;
+  font-family:"Space Mono",monospace;font-weight:700;font-size:.72rem;letter-spacing:.06em;
+  color:var(--ink);background:rgba(255,255,255,.75);border:1px solid var(--line);
+  padding:6px 12px;border-radius:999px}
 
 /* internal brief */
 .brief{margin-top:20px;display:grid;gap:14px;grid-template-columns:1fr 1fr}
@@ -52,28 +58,35 @@ h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
 .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:.86rem}
 .kv .mono{color:var(--ny);font-weight:700;white-space:nowrap}
 .flist{margin:0;padding:0;list-style:none;font-size:.86rem}
-.flist li{display:grid;grid-template-columns:64px 66px 1fr auto;gap:8px;padding:5px 0;
-  border-top:1px dashed var(--line);align-items:baseline}
+.flist li{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 10px;padding:7px 0;
+  border-top:1px dashed var(--line)}
+.flist .fn{width:74px;flex:none}
+.flist .rt{white-space:nowrap;flex:none}
+.flist .fd:last-child{margin-left:auto}
 .flist li:first-child{border-top:0}
 .flist .fn{font-family:"Space Mono",monospace;font-weight:700;color:var(--ink)}
 .flist .fd{font-family:"Space Mono",monospace;font-size:.78rem;color:var(--muted);text-align:right}
-.checks{margin:0;padding:0;list-style:none;font-size:.88rem;columns:1}
-.checks li{padding:5px 0 5px 26px;position:relative;border-top:1px dashed var(--line)}
+.checks{margin:0;padding:0;list-style:none;font-size:.88rem}
+.checks li{padding:5px 0;border-top:1px dashed var(--line)}
 .checks li:first-child{border-top:0}
-.checks li::before{content:"";position:absolute;left:2px;top:9px;width:13px;height:13px;
-  border:1.6px solid var(--muted);border-radius:4px}
+.checks label{display:flex;gap:9px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:2px;width:15px;height:15px;accent-color:var(--ny);flex:none}
+.checks input:checked+span{text-decoration:line-through;color:var(--muted)}
 .notes{margin:0;padding-left:18px;font-size:.86rem;color:var(--muted)}
 .notes li{padding:2px 0}
 
 /* timeline */
 .timeline{margin-top:30px}
 .leg{margin-top:34px}
-.leg-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;padding-left:6px}
+.leg-head{display:flex;align-items:center;gap:13px;margin-bottom:2px;
+  padding:12px 15px;background:var(--paper);border-radius:14px;box-shadow:var(--shadow);
+  border-left:4px solid var(--legc)}
 .leg-idx{font-family:"Space Mono",monospace;font-weight:700;font-size:.82rem;
   color:#fff;background:var(--legc);border-radius:7px;padding:3px 8px;letter-spacing:.05em}
-.leg-head h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.6rem;
+.leg-tt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.leg-head h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.45rem;
   margin:0;letter-spacing:-.01em}
-.leg-tag{margin:2px 0 0 6px;font-size:.82rem;color:var(--muted);padding-left:6px}
+.leg-tag{font-size:.8rem;color:var(--muted)}
 
 .day{display:grid;grid-template-columns:42px 1fr;align-items:stretch}
 .rail{position:relative}
@@ -83,7 +96,8 @@ h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
 .dot{position:absolute;left:13px;top:20px;width:16px;height:16px;border-radius:50%;
   background:var(--paper);border:3px solid var(--legc);z-index:1}
 .day-body{padding:14px 0 20px 6px}
-.day-top{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.day-top{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;
+  background:var(--paper);border-radius:11px;box-shadow:var(--shadow);padding:9px 13px}
 .day-dow{font-family:"Space Mono",monospace;font-weight:700;color:var(--legc);
   font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
 .day-date{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.12rem}
@@ -96,7 +110,7 @@ h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
 .sched .t{font-family:"Space Mono",monospace;font-size:.78rem;color:var(--muted);
   font-weight:700;padding-top:1px}
 .sched .a{font-size:.93rem}
-.stub{margin-top:10px;background:repeating-linear-gradient(90deg,transparent,transparent 6px,rgba(22,33,44,.02) 6px,rgba(22,33,44,.02) 12px);
+.stub{margin-top:10px;background:var(--paper);box-shadow:var(--shadow);
   border:1.5px dashed var(--legc);border-radius:12px;padding:11px 13px}
 .stub h4{margin:0 0 6px;font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.16em;
   text-transform:uppercase;color:var(--legc)}
@@ -105,8 +119,32 @@ h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
 .stub .stay{font-weight:700}
 .stub li.book{color:var(--bos);font-weight:700}
 
-footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
-  font-family:"Space Mono",monospace;letter-spacing:.04em}
+.fold{margin-top:22px}
+.fold summary{cursor:pointer;-webkit-tap-highlight-color:transparent;list-style:none;
+  display:flex;align-items:center;gap:13px;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.45rem;
+  letter-spacing:-.01em;padding:12px 15px;background:var(--paper);border-radius:14px;
+  box-shadow:var(--shadow);border-left:4px solid var(--gold)}
+.fchip{font-family:"Space Mono",monospace;font-weight:700;font-size:.82rem;
+  color:#fff;background:var(--gold);border-radius:7px;padding:3px 9px;letter-spacing:.05em}
+.fold summary::after{margin-left:auto}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary::after{content:"+";font-family:"Space Mono",monospace;font-weight:700;
+  font-size:1.1rem;color:var(--muted)}
+.fold[open] summary::after{content:"–"}
+.fold .brief{margin-top:12px}
+.nav{position:sticky;top:0;z-index:10;display:flex;gap:8px;overflow-x:auto;
+  padding:12px 2px;margin-top:10px;background:transparent;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;font-family:"Space Mono",monospace;font-weight:700;
+  font-size:.74rem;letter-spacing:.04em;color:var(--ink);background:var(--paper);
+  padding:8px 14px;border-radius:999px;box-shadow:0 2px 6px rgba(22,33,44,.14),0 8px 22px rgba(22,33,44,.10);border-left:4px solid var(--pc,var(--muted))}
+.leg,.fold{scroll-margin-top:64px}
+footer{margin:46px auto 0;width:fit-content;text-align:center;color:var(--muted);
+  font-size:.8rem;font-family:"Space Mono",monospace;letter-spacing:.04em;
+  background:var(--paper);border-radius:999px;padding:9px 18px;box-shadow:var(--shadow)}
+
 
 :focus-visible{outline:3px solid var(--sf);outline-offset:2px;border-radius:6px}
 @media(prefers-reduced-motion:no-preference){
@@ -120,6 +158,7 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
 <body>
   <div class="wrap">
     <header class="hero">
+      <a class="langlink" href="zh.html">中文</a>
       <div class="eyebrow">SUMMER 2026 · 14 DAYS · Trip preview</div>
       <h1>Coast to Coast</h1>
       <div class="hero-dates">Jul 24 – Aug 7, 2026</div>
@@ -127,19 +166,20 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
       <div class="tagline">Where we&#x27;re going &amp; when. Baseball, museums, food, live music, and coast-to-coast miles.</div>
     </header>
     
+    
     <main class="timeline">
       
-      <section class="leg" style="--legc:var(--sf)">
+      <section class="leg" id="leg-01" style="--legc:var(--sf)">
         <div class="leg-head"><span class="leg-idx">01</span>
-          <h2>San Francisco</h2></div>
-        <div class="leg-tag">Bay Area · baseball · fog &amp; coffee</div>
+          <div class="leg-tt"><h2>San Francisco</h2>
+          <div class="leg-tag">Bay Area · baseball · fog &amp; coffee</div></div></div>
         
         <article class="day">
           <div class="rail"><span class="dot"></span></div>
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Fri</span>
               <span class="day-date">Jul 24</span><span class="day-tag">Arrival</span></div>
-            <ul class="sched"><li><span class="t">late</span><span class="a">✈️ Arrive in San Francisco</span></li></ul>
+            <ul class="sched"><li><span class="t">22:40</span><span class="a">✈️ CX872 arrives San Francisco</span></li></ul>
             
           </div>
         </article>
@@ -147,8 +187,8 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="rail"><span class="dot"></span></div>
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Sat</span>
-              <span class="day-date">Jul 25</span><span class="day-tag">Waterfront walk + Alcatraz</span></div>
-            <ul class="sched"><li><span class="t">09:30</span><span class="a">📸 Fort Point — Civil War fort directly under the bridge</span></li><li><span class="t">10:30</span><span class="a">🚶 Crissy Field waterfront walk → Fort Mason → Aquatic Park</span></li><li><span class="t">12:30</span><span class="a">🍽️ Fisherman&#x27;s Wharf lunch + Musée Mécanique</span></li><li><span class="t">14:00</span><span class="a">🎫 Alcatraz Island</span></li><li><span class="t">16:30</span><span class="a">🚋 Cable car + 📸 Lombard Street</span></li><li><span class="t">17:30</span><span class="a">📸 Painted Ladies at Alamo Square</span></li><li><span class="t">19:00</span><span class="a">🍜 North Beach / Chinatown dinner</span></li></ul>
+              <span class="day-date">Jul 25</span><span class="day-tag">Berkeley + bridge at sunset</span></div>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">🚆 Head to Berkeley</span></li><li><span class="t">10:45</span><span class="a">🎓 UC Berkeley — Sather Gate, Campanile tower, Memorial Glade</span></li><li><span class="t">12:30</span><span class="a">🍽️ Lunch — TBD</span></li><li><span class="t">14:00</span><span class="a">📚 Telegraph Ave — Moe&#x27;s Books, record shops</span></li><li><span class="t">15:30</span><span class="a">📸 Grizzly Peak lookout — full bay panorama</span></li><li><span class="t">16:30</span><span class="a">🚋 Cable car + 📸 Lombard Street</span></li><li><span class="t">17:30</span><span class="a">🗼 Coit Tower — views over the bay from Telegraph Hill</span></li><li><span class="t">18:30</span><span class="a">🌉 Golden Gate Bridge at golden hour — Crissy Field / Fort Point</span></li><li><span class="t">19:45</span><span class="a">🍽️ Dinner — TBD</span></li></ul>
             
           </div>
         </article>
@@ -166,7 +206,7 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Mon</span>
               <span class="day-date">Jul 27</span><span class="day-tag">Silicon Valley</span></div>
-            <ul class="sched"><li><span class="t">09:15</span><span class="a">🚇 Leave for SF Caltrain — 4th &amp; King</span></li><li><span class="t">10:00</span><span class="a">🚆 Caltrain south → Menlo Park (~46 min)</span></li><li><span class="t">11:10</span><span class="a">📸 Meta campus + &#x27;like&#x27; sign with Jennifer</span></li><li><span class="t">11:30</span><span class="a">🍽️ Lunch at MPK14 with Jennifer</span></li><li><span class="t">13:30</span><span class="a">💻 NVIDIA HQ with Johnson</span></li><li><span class="t">15:20</span><span class="a">📸 Computer History Museum + Google Android statues</span></li><li><span class="t">17:00</span><span class="a">🎓 Stanford — Main Quad, Hoover Tower, Rodin garden</span></li><li><span class="t">18:30</span><span class="a">🍽️ Palo Alto dinner → Caltrain back to SF</span></li></ul>
+            <ul class="sched"><li><span class="t">09:15</span><span class="a">🚇 Leave for SF Caltrain — 4th &amp; King</span></li><li><span class="t">10:00</span><span class="a">🚆 Caltrain south → Menlo Park (~46 min)</span></li><li><span class="t">11:10</span><span class="a">📸 Meta campus + &#x27;like&#x27; sign</span></li><li><span class="t">11:30</span><span class="a">🍽️ Lunch at MPK14</span></li><li><span class="t">12:30</span><span class="a">🚶 Walk both Meta campuses — until ~14:30</span></li><li><span class="t">15:00</span><span class="a">💻 NVIDIA HQ</span></li><li><span class="t">16:15</span><span class="a">📚 Stanford Bookstore</span></li><li><span class="t">17:15</span><span class="a">🎓 Stanford — Main Quad + Rodin garden at dusk</span></li><li><span class="t">19:00</span><span class="a">🍽️ Palo Alto dinner → Caltrain back to SF</span></li></ul>
             
           </div>
         </article>
@@ -174,23 +214,23 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="rail"><span class="dot"></span></div>
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Tue</span>
-              <span class="day-date">Jul 28</span><span class="day-tag">Culture + ballgame</span></div>
-            <ul class="sched"><li><span class="t">10:00</span><span class="a">🎨 SFMOMA</span></li><li><span class="t">12:30</span><span class="a">☕ Coffee crawl — Blue Bottle original / Sightglass</span></li><li><span class="t">14:00</span><span class="a">🌊 Lands End + Sutro Baths</span></li><li><span class="t">18:45</span><span class="a">⚾ Giants vs. Brewers — Oracle Park</span></li></ul>
+              <span class="day-date">Jul 28</span><span class="day-tag">Alcatraz, art + ballgame</span></div>
+            <ul class="sched"><li><span class="t">09:00</span><span class="a">🎫 Alcatraz Island — earliest ferry, ~3 hr round trip</span></li><li><span class="t">12:15</span><span class="a">🕹️ Musée Mécanique + Fisherman&#x27;s Wharf lunch</span></li><li><span class="t">14:00</span><span class="a">🎨 SFMOMA</span></li><li><span class="t">15:45</span><span class="a">☕ Coffee — Sightglass / Blue Bottle (SoMa)</span></li><li><span class="t">16:30</span><span class="a">🏀 Golden State Shop — Chase Center, Thrive City</span></li><li><span class="t">18:45</span><span class="a">⚾ Giants vs. Brewers — Oracle Park</span></li></ul>
             
           </div>
         </article>
       </section>
-      <section class="leg" style="--legc:var(--hou)">
+      <section class="leg" id="leg-02" style="--legc:var(--hou)">
         <div class="leg-head"><span class="leg-idx">02</span>
-          <h2>Houston</h2></div>
-        <div class="leg-tag">Space · BBQ · friends</div>
+          <div class="leg-tt"><h2>Houston</h2>
+          <div class="leg-tag">Space · BBQ · friends</div></div></div>
         
         <article class="day">
           <div class="rail"><span class="dot"></span></div>
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Wed</span>
               <span class="day-date">Jul 29</span><span class="day-tag">SF → Houston</span></div>
-            <ul class="sched"><li><span class="t">09:00</span><span class="a">🥐 Ferry Building brunch</span></li><li><span class="t">12:15</span><span class="a">✈️ Fly San Francisco → Houston</span></li><li><span class="t">evening</span><span class="a">🍽️ Dinner — TBD</span></li></ul>
+            <ul class="sched"><li><span class="t">09:00</span><span class="a">🥐 Ferry Building brunch</span></li><li><span class="t">12:15</span><span class="a">✈️ UA1387 — SFO 12:15 → IAH 18:27</span></li><li><span class="t">evening</span><span class="a">🍽️ Dinner — TBD</span></li></ul>
             
           </div>
         </article>
@@ -208,22 +248,22 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Fri</span>
               <span class="day-date">Jul 31</span><span class="day-tag">Houston → New York</span></div>
-            <ul class="sched"><li><span class="t">09:30</span><span class="a">🍜 Asiatown breakfast (Bellaire Blvd)</span></li><li><span class="t">11:00</span><span class="a">🎨 Museum of Fine Arts Houston</span></li><li><span class="t">13:30</span><span class="a">🍽️ Lunch</span></li><li><span class="t">18:31</span><span class="a">✈️ Fly Houston → New York</span></li><li><span class="t">00:50</span><span class="a">🍜 Late night: Chinatown (Great NY Noodletown) / Koreatown (W 32nd St)</span></li></ul>
+            <ul class="sched"><li><span class="t">09:30</span><span class="a">🍜 Asiatown breakfast (Bellaire Blvd)</span></li><li><span class="t">11:00</span><span class="a">🎨 Museum of Fine Arts Houston</span></li><li><span class="t">13:30</span><span class="a">🍽️ Lunch</span></li><li><span class="t">18:31</span><span class="a">✈️ UA2783 — IAH 18:31 → LGA 23:14</span></li><li><span class="t">00:50</span><span class="a">🍜 Late night: Chinatown (Great NY Noodletown) / Koreatown (W 32nd St)</span></li></ul>
             
           </div>
         </article>
       </section>
-      <section class="leg" style="--legc:var(--ny)">
+      <section class="leg" id="leg-03" style="--legc:var(--ny)">
         <div class="leg-head"><span class="leg-idx">03</span>
-          <h2>New York</h2></div>
-        <div class="leg-tag">Icons · food · music</div>
+          <div class="leg-tt"><h2>New York</h2>
+          <div class="leg-tag">Icons · food · music</div></div></div>
         
         <article class="day">
           <div class="rail"><span class="dot"></span></div>
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Sat</span>
               <span class="day-date">Aug 1</span><span class="day-tag">Downtown + Alok at Pacha</span></div>
-            <ul class="sched"><li><span class="t">10:00</span><span class="a">⛴️ Staten Island Ferry — Statue of Liberty view (free)</span></li><li><span class="t">11:30</span><span class="a">📸 9/11 Memorial + One World</span></li><li><span class="t">13:00</span><span class="a">🐂 Wall St / Charging Bull + lunch</span></li><li><span class="t">15:00</span><span class="a">🌉 Walk Brooklyn Bridge → DUMBO</span></li><li><span class="t">16:30</span><span class="a">📸 Brooklyn Heights Promenade — skyline</span></li><li><span class="t">19:00</span><span class="a">🍽️ Dinner — Ricardo + Ben</span></li><li><span class="t">22:00</span><span class="a">🎧 Alok — Rave The World at Pacha</span></li></ul>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">⛴️ Staten Island Ferry — Statue of Liberty view (free)</span></li><li><span class="t">11:30</span><span class="a">📸 9/11 Memorial + One World</span></li><li><span class="t">13:00</span><span class="a">🐂 Wall St / Charging Bull + lunch</span></li><li><span class="t">15:00</span><span class="a">🌉 Walk Brooklyn Bridge → DUMBO</span></li><li><span class="t">16:30</span><span class="a">📸 Brooklyn Heights Promenade — skyline</span></li><li><span class="t">19:00</span><span class="a">🍽️ Dinner — Ricardo + Ben</span></li><li><span class="t">21:00</span><span class="a">🍸 Marquee Skydeck at Edge — rooftop DJs, 1,100 ft up</span></li><li><span class="t">22:00</span><span class="a">🎧 Alok — Rave The World at Pacha</span></li></ul>
             
           </div>
         </article>
@@ -232,7 +272,7 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Sun</span>
               <span class="day-date">Aug 2</span><span class="day-tag">Late start + Sienna</span></div>
-            <ul class="sched"><li><span class="t">12:00</span><span class="a">🥐 Late brunch</span></li><li><span class="t">13:30</span><span class="a">👋 Hangout w/ Sienna — Location TBD</span></li><li><span class="t">19:00</span><span class="a">🍽️ Dinner with Sienna</span></li></ul>
+            <ul class="sched"><li><span class="t">12:00</span><span class="a">🥐 Williamsburg brunch + Devoción coffee</span></li><li><span class="t">13:00</span><span class="a">🎨 Williamsburg — Bedford Ave, vintage shops, waterfront</span></li><li><span class="t">14:30</span><span class="a">👋 Hangout w/ Sienna — Location TBD</span></li><li><span class="t">19:00</span><span class="a">🍽️ Dinner with Sienna</span></li></ul>
             
           </div>
         </article>
@@ -241,15 +281,15 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Mon</span>
               <span class="day-date">Aug 3</span><span class="day-tag">Central Park, the Met + Yankees</span></div>
-            <ul class="sched"><li><span class="t">10:00</span><span class="a">🌳 Central Park — Bethesda Terrace, Bow Bridge, Belvedere Castle</span></li><li><span class="t">12:00</span><span class="a">🎨 The Met — on the park&#x27;s edge</span></li><li><span class="t">14:30</span><span class="a">🍽️ Upper East Side lunch</span></li><li><span class="t">16:00</span><span class="a">🛍️ Fifth Avenue + Grand Central</span></li><li><span class="t">19:05</span><span class="a">⚾ Yankees vs. Cardinals — Yankee Stadium</span></li></ul>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">🌳 Central Park — Bethesda Terrace, Bow Bridge, Belvedere Castle</span></li><li><span class="t">12:00</span><span class="a">🎨 The Met — on the park&#x27;s edge</span></li><li><span class="t">14:30</span><span class="a">🍽️ Upper East Side lunch</span></li><li><span class="t">16:00</span><span class="a">🛍️ NBA Store, Fifth Ave — Knicks championship gear</span></li><li><span class="t">17:00</span><span class="a">🏛️ Grand Central + NY Public Library + Bryant Park</span></li><li><span class="t">19:05</span><span class="a">⚾ Yankees vs. Cardinals — Yankee Stadium</span></li></ul>
             
           </div>
         </article>
       </section>
-      <section class="leg" style="--legc:var(--bos)">
+      <section class="leg" id="leg-04" style="--legc:var(--bos)">
         <div class="leg-head"><span class="leg-idx">04</span>
-          <h2>Boston</h2></div>
-        <div class="leg-tag">Fenway · Harvard · lobster</div>
+          <div class="leg-tt"><h2>Boston</h2>
+          <div class="leg-tag">Fenway · Harvard · lobster</div></div></div>
         
         <article class="day">
           <div class="rail"><span class="dot"></span></div>
@@ -265,22 +305,22 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Wed</span>
               <span class="day-date">Aug 5</span><span class="day-tag">Harvard, MIT → back to NY</span></div>
-            <ul class="sched"><li><span class="t">10:00</span><span class="a">🎓 Harvard Yard + Harvard Square</span></li><li><span class="t">12:00</span><span class="a">🎓 MIT — Great Dome, Stata Center</span></li><li><span class="t">13:00</span><span class="a">🦞 Quincy Market / lobster roll</span></li><li><span class="t">15:00</span><span class="a">📸 Charles River waterfront</span></li><li><span class="t">16:30</span><span class="a">🚆 Acela back to New York → dinner</span></li></ul>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">🎓 Harvard Yard + Harvard Square</span></li><li><span class="t">12:00</span><span class="a">🎓 MIT — Great Dome, Stata Center</span></li><li><span class="t">13:00</span><span class="a">🦞 Quincy Market / lobster roll</span></li><li><span class="t">14:15</span><span class="a">📸 Beacon Hill + Acorn Street — cobblestones</span></li><li><span class="t">15:15</span><span class="a">📸 Charles River waterfront</span></li><li><span class="t">16:30</span><span class="a">🚆 Acela back to New York → dinner</span></li></ul>
             
           </div>
         </article>
       </section>
-      <section class="leg" style="--legc:var(--ny)">
+      <section class="leg" id="leg-05" style="--legc:var(--ny)">
         <div class="leg-head"><span class="leg-idx">05</span>
-          <h2>New York</h2></div>
-        <div class="leg-tag">Broadway · outlet · home</div>
+          <div class="leg-tt"><h2>New York</h2>
+          <div class="leg-tag">Broadway · outlet · home</div></div></div>
         
         <article class="day">
           <div class="rail"><span class="dot"></span></div>
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Thu</span>
               <span class="day-date">Aug 6</span><span class="day-tag">High Line + MoMA + Hamilton</span></div>
-            <ul class="sched"><li><span class="t">10:30</span><span class="a">🌿 High Line + Chelsea Market</span></li><li><span class="t">13:00</span><span class="a">🛍️ SoHo lunch + shopping</span></li><li><span class="t">15:00</span><span class="a">🎨 MoMA</span></li><li><span class="t">17:00</span><span class="a">📸 Top of the Rock</span></li><li><span class="t">19:00</span><span class="a">🎭 Hamilton — Richard Rodgers Theatre</span></li></ul>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">📸 Vessel + Hudson Yards architecture</span></li><li><span class="t">10:45</span><span class="a">🌿 High Line + Chelsea Market</span></li><li><span class="t">12:30</span><span class="a">🛍️ SoHo lunch + shopping</span></li><li><span class="t">14:30</span><span class="a">🎨 MoMA</span></li><li><span class="t">16:30</span><span class="a">📸 Top of the Rock</span></li><li><span class="t">17:45</span><span class="a">🍽️ Theater District dinner</span></li><li><span class="t">19:00</span><span class="a">🎭 Hamilton — Richard Rodgers Theatre</span></li></ul>
             
           </div>
         </article>
@@ -289,7 +329,7 @@ footer{margin-top:46px;text-align:center;color:var(--muted);font-size:.8rem;
           <div class="day-body">
             <div class="day-top"><span class="day-dow">Fri</span>
               <span class="day-date">Aug 7</span><span class="day-tag">Outlet + fly home</span></div>
-            <ul class="sched"><li><span class="t">09:00</span><span class="a">🛍️ Woodbury Common outlets — direct bus from Port Authority</span></li><li><span class="t">17:00</span><span class="a">📸 Times Square</span></li><li><span class="t">18:30</span><span class="a">🍽️ Farewell dinner</span></li><li><span class="t">22:30</span><span class="a">✈️ Head to the airport — flight home</span></li></ul>
+            <ul class="sched"><li><span class="t">09:00</span><span class="a">🛍️ Woodbury Common outlets — direct bus from Port Authority</span></li><li><span class="t">17:00</span><span class="a">📸 Times Square</span></li><li><span class="t">18:30</span><span class="a">🍽️ Farewell dinner</span></li><li><span class="t">22:30</span><span class="a">✈️ To JFK — CX843 departs 01:55</span></li></ul>
             
           </div>
         </article>

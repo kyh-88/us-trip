@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
+<title>Coast to Coast — Shared</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:only light;
+  --bg:#EDEFEC; --paper:#FFFFFF; --ink:#16212C; --muted:#5B6A71; --line:#D5DBD6;
+  --sf:#2E8C9E; --hou:#C4602C; --ny:#26456F; --bos:#9E2A24; --gold:#B4892B;
+  --shadow:0 1px 2px rgba(22,33,44,.06),0 8px 24px rgba(22,33,44,.06);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Inter",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",-apple-system,Segoe UI,Roboto,sans-serif;
+  font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(circle at 1px 1px, rgba(22,33,44,.045) 1px, transparent 0);
+  background-size:22px 22px;
+}
+.wrap{max-width:760px;margin:0 auto;padding:26px 18px 64px}
+.mono{font-family:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* hero */
+.hero{padding:30px 26px 26px;border-radius:20px;background:var(--paper);box-shadow:var(--shadow);
+  position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,rgba(46,140,158,.10),rgba(196,96,44,.08) 42%,rgba(38,69,111,.10) 72%,rgba(158,42,36,.10));}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted)}
+h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
+  font-size:clamp(2.5rem,9vw,4.1rem);line-height:.95;letter-spacing:-.02em;margin:.28em 0 .18em}
+.hero-dates{font-family:"Space Mono",monospace;font-size:.9rem;color:var(--ink)}
+.route{display:flex;flex-wrap:wrap;align-items:center;gap:.5ch;margin-top:16px;
+  font-family:"Space Mono",monospace;font-weight:700;font-size:1rem;letter-spacing:.04em}
+.route .stop{padding:2px 9px;border-radius:999px;background:rgba(22,33,44,.06)}
+.route .arw{color:var(--muted)}
+.tagline{color:var(--muted);margin-top:14px;font-size:.92rem;max-width:52ch}
+.langlink{position:absolute;top:18px;right:18px;z-index:2;text-decoration:none;
+  font-family:"Space Mono",monospace;font-weight:700;font-size:.72rem;letter-spacing:.06em;
+  color:var(--ink);background:rgba(255,255,255,.75);border:1px solid var(--line);
+  padding:6px 12px;border-radius:999px}
+
+/* internal brief */
+.brief{margin-top:20px;display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media(max-width:560px){.brief{grid-template-columns:1fr}}
+.card{background:var(--paper);border-radius:16px;padding:16px 17px;box-shadow:var(--shadow)}
+.card h3{margin:0 0 10px;font-family:"Bricolage Grotesque",sans-serif;font-size:.78rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.card.span{grid-column:1/-1}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:.86rem}
+.kv .mono{color:var(--ny);font-weight:700;white-space:nowrap}
+.flist{margin:0;padding:0;list-style:none;font-size:.86rem}
+.flist li{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 10px;padding:7px 0;
+  border-top:1px dashed var(--line)}
+.flist .fn{width:74px;flex:none}
+.flist .rt{white-space:nowrap;flex:none}
+.flist .fd:last-child{margin-left:auto}
+.flist li:first-child{border-top:0}
+.flist .fn{font-family:"Space Mono",monospace;font-weight:700;color:var(--ink)}
+.flist .fd{font-family:"Space Mono",monospace;font-size:.78rem;color:var(--muted);text-align:right}
+.checks{margin:0;padding:0;list-style:none;font-size:.88rem}
+.checks li{padding:5px 0;border-top:1px dashed var(--line)}
+.checks li:first-child{border-top:0}
+.checks label{display:flex;gap:9px;align-items:flex-start;cursor:pointer}
+.checks input{margin-top:2px;width:15px;height:15px;accent-color:var(--ny);flex:none}
+.checks input:checked+span{text-decoration:line-through;color:var(--muted)}
+.notes{margin:0;padding-left:18px;font-size:.86rem;color:var(--muted)}
+.notes li{padding:2px 0}
+
+/* timeline */
+.timeline{margin-top:30px}
+.leg{margin-top:34px}
+.leg-head{display:flex;align-items:center;gap:13px;margin-bottom:2px;
+  padding:12px 15px;background:var(--paper);border-radius:14px;box-shadow:var(--shadow);
+  border-left:4px solid var(--legc)}
+.leg-idx{font-family:"Space Mono",monospace;font-weight:700;font-size:.82rem;
+  color:#fff;background:var(--legc);border-radius:7px;padding:3px 8px;letter-spacing:.05em}
+.leg-tt{display:flex;flex-direction:column;gap:1px;min-width:0}
+.leg-head h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.45rem;
+  margin:0;letter-spacing:-.01em}
+.leg-tag{font-size:.8rem;color:var(--muted)}
+
+.day{display:grid;grid-template-columns:42px 1fr;align-items:stretch}
+.rail{position:relative}
+.rail::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:2px;
+  background:var(--line)}
+.leg:last-child .day:last-child .rail::before{bottom:auto;height:26px}
+.dot{position:absolute;left:13px;top:20px;width:16px;height:16px;border-radius:50%;
+  background:var(--paper);border:3px solid var(--legc);z-index:1}
+.day-body{padding:14px 0 20px 6px}
+.day-top{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;
+  background:var(--paper);border-radius:11px;box-shadow:var(--shadow);padding:9px 13px}
+.day-dow{font-family:"Space Mono",monospace;font-weight:700;color:var(--legc);
+  font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
+.day-date{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.12rem}
+.day-tag{font-size:.8rem;color:var(--muted);margin-left:auto;text-align:right}
+.sched{background:var(--paper);border-radius:14px;box-shadow:var(--shadow);
+  padding:6px 4px;list-style:none;margin:0;border-left:4px solid var(--legc)}
+.sched li{display:grid;grid-template-columns:62px 1fr;gap:10px;padding:9px 12px;
+  border-top:1px solid rgba(213,219,214,.7);align-items:baseline}
+.sched li:first-child{border-top:0}
+.sched .t{font-family:"Space Mono",monospace;font-size:.78rem;color:var(--muted);
+  font-weight:700;padding-top:1px}
+.sched .a{font-size:.93rem}
+.stub{margin-top:10px;background:var(--paper);box-shadow:var(--shadow);
+  border:1.5px dashed var(--legc);border-radius:12px;padding:11px 13px}
+.stub h4{margin:0 0 6px;font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--legc)}
+.stub ul{margin:0;padding-left:16px;font-size:.83rem;color:var(--ink)}
+.stub li{padding:2px 0}
+.stub .stay{font-weight:700}
+.stub li.book{color:var(--bos);font-weight:700}
+
+.fold{margin-top:22px}
+.fold summary{cursor:pointer;-webkit-tap-highlight-color:transparent;list-style:none;
+  display:flex;align-items:center;gap:13px;
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.45rem;
+  letter-spacing:-.01em;padding:12px 15px;background:var(--paper);border-radius:14px;
+  box-shadow:var(--shadow);border-left:4px solid var(--gold)}
+.fchip{font-family:"Space Mono",monospace;font-weight:700;font-size:.82rem;
+  color:#fff;background:var(--gold);border-radius:7px;padding:3px 9px;letter-spacing:.05em}
+.fold summary::after{margin-left:auto}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary::after{content:"+";font-family:"Space Mono",monospace;font-weight:700;
+  font-size:1.1rem;color:var(--muted)}
+.fold[open] summary::after{content:"–"}
+.fold .brief{margin-top:12px}
+.nav{position:sticky;top:0;z-index:10;display:flex;gap:8px;overflow-x:auto;
+  padding:12px 2px;margin-top:10px;background:transparent;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;font-family:"Space Mono",monospace;font-weight:700;
+  font-size:.74rem;letter-spacing:.04em;color:var(--ink);background:var(--paper);
+  padding:8px 14px;border-radius:999px;box-shadow:0 2px 6px rgba(22,33,44,.14),0 8px 22px rgba(22,33,44,.10);border-left:4px solid var(--pc,var(--muted))}
+.leg,.fold{scroll-margin-top:64px}
+footer{margin:46px auto 0;width:fit-content;text-align:center;color:var(--muted);
+  font-size:.8rem;font-family:"Space Mono",monospace;letter-spacing:.04em;
+  background:var(--paper);border-radius:999px;padding:9px 18px;box-shadow:var(--shadow)}
+
+
+:focus-visible{outline:3px solid var(--sf);outline-offset:2px;border-radius:6px}
+@media(prefers-reduced-motion:no-preference){
+  .leg{opacity:0;transform:translateY(10px);animation:rise .6s ease forwards}
+  .leg:nth-child(2){animation-delay:.05s}.leg:nth-child(3){animation-delay:.1s}
+  .leg:nth-child(4){animation-delay:.15s}.leg:nth-child(5){animation-delay:.2s}
+  @keyframes rise{to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <a class="langlink" href="./">EN</a>
+      <div class="eyebrow">2026 夏 · 14 天 · 行程預覽</div>
+      <h1>Coast to Coast</h1>
+      <div class="hero-dates">2026 年 7/24 – 8/7</div>
+      <div class="route"><span class="stop">SFO</span><span class="arw">→</span><span class="stop">HOU</span><span class="arw">→</span><span class="stop">NYC</span><span class="arw">→</span><span class="stop">BOS</span></div>
+      <div class="tagline">行程與時間。棒球、美術館、美食、現場音樂，橫跨東西岸。</div>
+    </header>
+    
+    
+    <main class="timeline">
+      
+      <section class="leg" id="leg-01" style="--legc:var(--sf)">
+        <div class="leg-head"><span class="leg-idx">01</span>
+          <div class="leg-tt"><h2>舊金山</h2>
+          <div class="leg-tag">灣區 · 棒球 · 霧與咖啡</div></div></div>
+        
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週五</span>
+              <span class="day-date">7/24</span><span class="day-tag">抵達</span></div>
+            <ul class="sched"><li><span class="t">22:40</span><span class="a">✈️ CX872 抵達舊金山</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週六</span>
+              <span class="day-date">7/25</span><span class="day-tag">Berkeley + 黃昏金門大橋</span></div>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">🚆 Head to Berkeley</span></li><li><span class="t">10:45</span><span class="a">🎓 UC Berkeley — Sather Gate、Campanile 鐘塔、Memorial Glade</span></li><li><span class="t">12:30</span><span class="a">🍽️ 午餐 — 待定</span></li><li><span class="t">14:00</span><span class="a">📚 Telegraph Ave — Moe&#x27;s Books 書店、唱片行</span></li><li><span class="t">15:30</span><span class="a">📸 Grizzly Peak 觀景點 — 整個海灣全景</span></li><li><span class="t">16:30</span><span class="a">🚋 叮噹車 + 📸 倫巴底街</span></li><li><span class="t">17:30</span><span class="a">🗼 Coit Tower — views over the bay from Telegraph Hill</span></li><li><span class="t">18:30</span><span class="a">🌉 黃金時刻的金門大橋 — Crissy Field / Fort Point</span></li><li><span class="t">19:45</span><span class="a">🍽️ 晚餐 — 待定</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週日</span>
+              <span class="day-date">7/26</span><span class="day-tag">Big Sur 一日遊</span></div>
+            <ul class="sched"><li><span class="t">07:30</span><span class="a">🚗 早出發 — 朋友開車</span></li><li><span class="t">10:00</span><span class="a">📸 Carmel-by-the-Sea 小鎮</span></li><li><span class="t">10:45</span><span class="a">🌲 Point Lobos 自然保護區 — 海蝕灣、柏樹林、海獅</span></li><li><span class="t">12:00</span><span class="a">📸 Bixby Creek 大橋</span></li><li><span class="t">13:00</span><span class="a">🍽️ Big Sur 午餐 — Nepenthe</span></li><li><span class="t">14:30</span><span class="a">📸 McWay 瀑布</span></li><li><span class="t">16:00</span><span class="a">🚗 開車回市區</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週一</span>
+              <span class="day-date">7/27</span><span class="day-tag">矽谷</span></div>
+            <ul class="sched"><li><span class="t">09:15</span><span class="a">🚇 出發去 Caltrain 車站 — 4th &amp; King</span></li><li><span class="t">10:00</span><span class="a">🚆 Caltrain 南下 → Menlo Park(約 46 分)</span></li><li><span class="t">11:10</span><span class="a">📸 Meta campus + &#x27;like&#x27; sign</span></li><li><span class="t">11:30</span><span class="a">🍽️ Lunch at MPK14</span></li><li><span class="t">12:30</span><span class="a">🚶 Walk both Meta campuses — until ~14:30</span></li><li><span class="t">15:00</span><span class="a">💻 NVIDIA HQ</span></li><li><span class="t">16:15</span><span class="a">📚 Stanford 書店</span></li><li><span class="t">17:15</span><span class="a">🎓 Stanford — 黃昏的 Main Quad + 羅丹雕塑園</span></li><li><span class="t">19:00</span><span class="a">🍽️ Palo Alto 晚餐 → Caltrain 回舊金山</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週二</span>
+              <span class="day-date">7/28</span><span class="day-tag">惡魔島 · 藝術 · 棒球</span></div>
+            <ul class="sched"><li><span class="t">09:00</span><span class="a">🎫 惡魔島 — 最早船班，來回約 3 小時</span></li><li><span class="t">12:15</span><span class="a">🕹️ Musée Mécanique 古董遊戲機 + 漁人碼頭午餐</span></li><li><span class="t">14:00</span><span class="a">🎨 SFMOMA 現代美術館</span></li><li><span class="t">15:45</span><span class="a">☕ 咖啡 — Sightglass / Blue Bottle(SoMa)</span></li><li><span class="t">16:30</span><span class="a">🏀 勇士官方商店 — Chase Center, Thrive City</span></li><li><span class="t">18:45</span><span class="a">⚾ 巨人 vs. 釀酒人 — Oracle Park</span></li></ul>
+            
+          </div>
+        </article>
+      </section>
+      <section class="leg" id="leg-02" style="--legc:var(--hou)">
+        <div class="leg-head"><span class="leg-idx">02</span>
+          <div class="leg-tt"><h2>休士頓</h2>
+          <div class="leg-tag">太空 · 烤肉 · 朋友</div></div></div>
+        
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週三</span>
+              <span class="day-date">7/29</span><span class="day-tag">舊金山 → 休士頓</span></div>
+            <ul class="sched"><li><span class="t">09:00</span><span class="a">🥐 Ferry Building 早午餐</span></li><li><span class="t">12:15</span><span class="a">✈️ UA1387 — 舊金山 12:15 → 休士頓 18:27</span></li><li><span class="t">evening</span><span class="a">🍽️ 晚餐 — 待定</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週四</span>
+              <span class="day-date">7/30</span><span class="day-tag">休士頓一日</span></div>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">🚀 詹森太空中心</span></li><li><span class="t">13:00</span><span class="a">🍖 德州 BBQ 午餐</span></li><li><span class="t">14:30</span><span class="a">🎨 Menil Collection + Rothko Chapel</span></li><li><span class="t">16:30</span><span class="a">📸 Waterwall 水牆</span></li><li><span class="t">18:00</span><span class="a">🌇 Buffalo Bayou 日落散步</span></li><li><span class="t">19:30</span><span class="a">🍽️ 晚餐 — 待定</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週五</span>
+              <span class="day-date">7/31</span><span class="day-tag">休士頓 → 紐約</span></div>
+            <ul class="sched"><li><span class="t">09:30</span><span class="a">🍜 亞洲城早餐(Bellaire Blvd)</span></li><li><span class="t">11:00</span><span class="a">🎨 休士頓美術館 MFAH</span></li><li><span class="t">13:30</span><span class="a">🍽️ 午餐</span></li><li><span class="t">18:31</span><span class="a">✈️ UA2783 — 休士頓 18:31 → 紐約 LGA 23:14</span></li><li><span class="t">00:50</span><span class="a">🍜 宵夜：中國城(Great NY Noodletown)/ 韓國城(W 32nd St)</span></li></ul>
+            
+          </div>
+        </article>
+      </section>
+      <section class="leg" id="leg-03" style="--legc:var(--ny)">
+        <div class="leg-head"><span class="leg-idx">03</span>
+          <div class="leg-tt"><h2>紐約</h2>
+          <div class="leg-tag">地標 · 美食 · 音樂</div></div></div>
+        
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週六</span>
+              <span class="day-date">8/1</span><span class="day-tag">下城 + Alok @ Pacha</span></div>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">⛴️ 史泰登島渡輪 — 免費看自由女神</span></li><li><span class="t">11:30</span><span class="a">📸 9/11 紀念池 + One World</span></li><li><span class="t">13:00</span><span class="a">🐂 華爾街 / 銅牛 + 午餐</span></li><li><span class="t">15:00</span><span class="a">🌉 走布魯克林大橋 → DUMBO</span></li><li><span class="t">16:30</span><span class="a">📸 Brooklyn Heights Promenade — 天際線</span></li><li><span class="t">19:00</span><span class="a">🍽️ 晚餐 — Ricardo + Ben</span></li><li><span class="t">21:00</span><span class="a">🍸 Edge 的 Marquee Skydeck — 1,100 英尺高空 DJ</span></li><li><span class="t">22:00</span><span class="a">🎧 Alok — Rave The World @ Pacha</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週日</span>
+              <span class="day-date">8/2</span><span class="day-tag">睡飽出門 + Sienna</span></div>
+            <ul class="sched"><li><span class="t">12:00</span><span class="a">🥐 Williamsburg brunch + Devoción coffee</span></li><li><span class="t">13:00</span><span class="a">🎨 Williamsburg — Bedford Ave、二手店、河濱</span></li><li><span class="t">14:30</span><span class="a">👋 跟 Sienna hangout — 地點待定</span></li><li><span class="t">19:00</span><span class="a">🍽️ Dinner with Sienna</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週一</span>
+              <span class="day-date">8/3</span><span class="day-tag">中央公園 · 大都會 · 洋基</span></div>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">🌳 中央公園 — Bethesda 露台、Bow Bridge、Belvedere Castle</span></li><li><span class="t">12:00</span><span class="a">🎨 大都會博物館 — 就在公園邊</span></li><li><span class="t">14:30</span><span class="a">🍽️ 上東區午餐</span></li><li><span class="t">16:00</span><span class="a">🛍️ NBA Store,第五大道 — 尼克冠軍商品</span></li><li><span class="t">17:00</span><span class="a">🏛️ 中央車站 + 紐約公共圖書館 + Bryant Park</span></li><li><span class="t">19:05</span><span class="a">⚾ 洋基 vs. 紅雀 — 洋基球場</span></li></ul>
+            
+          </div>
+        </article>
+      </section>
+      <section class="leg" id="leg-04" style="--legc:var(--bos)">
+        <div class="leg-head"><span class="leg-idx">04</span>
+          <div class="leg-tt"><h2>波士頓</h2>
+          <div class="leg-tag">Fenway · 哈佛 · 龍蝦</div></div></div>
+        
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週二</span>
+              <span class="day-date">8/4</span><span class="day-tag">紐約 → 波士頓 + 紅襪</span></div>
+            <ul class="sched"><li><span class="t">08:00</span><span class="a">🚆 Acela 火車去波士頓</span></li><li><span class="t">12:30</span><span class="a">🍝 北角區午餐 + 📸 自由之路</span></li><li><span class="t">16:00</span><span class="a">🧁 Cannoli 對決 — Mike&#x27;s vs Modern</span></li><li><span class="t">17:10</span><span class="a">⚾ Fenway 賽前導覽 — 登綠色巨牆</span></li><li><span class="t">19:10</span><span class="a">⚾ 紅襪 vs. 白襪 — Fenway Park</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週三</span>
+              <span class="day-date">8/5</span><span class="day-tag">哈佛 · MIT → 回紐約</span></div>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">🎓 Harvard Yard + 哈佛廣場</span></li><li><span class="t">12:00</span><span class="a">🎓 MIT — Great Dome、Stata Center</span></li><li><span class="t">13:00</span><span class="a">🦞 昆西市場 / 龍蝦堡</span></li><li><span class="t">14:15</span><span class="a">📸 Beacon Hill + Acorn Street — 鵝卵石小街</span></li><li><span class="t">15:15</span><span class="a">📸 查爾斯河畔</span></li><li><span class="t">16:30</span><span class="a">🚆 Acela 回紐約 → 晚餐</span></li></ul>
+            
+          </div>
+        </article>
+      </section>
+      <section class="leg" id="leg-05" style="--legc:var(--ny)">
+        <div class="leg-head"><span class="leg-idx">05</span>
+          <div class="leg-tt"><h2>紐約</h2>
+          <div class="leg-tag">百老匯 · Outlet · 回家</div></div></div>
+        
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週四</span>
+              <span class="day-date">8/6</span><span class="day-tag">高線公園 · MoMA · Hamilton</span></div>
+            <ul class="sched"><li><span class="t">10:00</span><span class="a">📸 Vessel 大松果 + Hudson Yards 建築</span></li><li><span class="t">10:45</span><span class="a">🌿 高線公園 + Chelsea Market</span></li><li><span class="t">12:30</span><span class="a">🛍️ SoHo 午餐 + 購物</span></li><li><span class="t">14:30</span><span class="a">🎨 MoMA 現代美術館</span></li><li><span class="t">16:30</span><span class="a">📸 Top of the Rock 觀景台</span></li><li><span class="t">17:45</span><span class="a">🍽️ 劇院區晚餐</span></li><li><span class="t">19:00</span><span class="a">🎭 Hamilton — Richard Rodgers 劇院</span></li></ul>
+            
+          </div>
+        </article>
+        <article class="day">
+          <div class="rail"><span class="dot"></span></div>
+          <div class="day-body">
+            <div class="day-top"><span class="day-dow">週五</span>
+              <span class="day-date">8/7</span><span class="day-tag">Outlet + 回港</span></div>
+            <ul class="sched"><li><span class="t">09:00</span><span class="a">🛍️ Woodbury Common outlet — Port Authority 直達巴士</span></li><li><span class="t">17:00</span><span class="a">📸 時代廣場</span></li><li><span class="t">18:30</span><span class="a">🍽️ 告別晚餐</span></li><li><span class="t">22:30</span><span class="a">✈️ 前往 JFK — CX843 01:55 起飛</span></li></ul>
+            
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer>Coast to Coast · 2026 年 7/24 – 8/7</footer>
+  </div>
+</body>
+</html>
