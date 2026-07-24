@@ -72,6 +72,8 @@ h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
 .checks label{display:flex;gap:9px;align-items:flex-start;cursor:pointer}
 .checks input{margin-top:2px;width:15px;height:15px;accent-color:var(--ny);flex:none}
 .checks input:checked+span{text-decoration:line-through;color:var(--muted)}
+.plainlist li{padding-left:17px;position:relative}
+.plainlist li::before{content:"\2022";position:absolute;left:3px;color:var(--gold);font-weight:700}
 .notes{margin:0;padding-left:18px;font-size:.86rem;color:var(--muted)}
 .notes li{padding:2px 0}
 
@@ -163,7 +165,7 @@ footer{margin:46px auto 0;width:fit-content;text-align:center;color:var(--muted)
       <h1>Coast to Coast</h1>
       <div class="hero-dates">2026 年 7/24 – 8/7</div>
       <div class="route"><span class="stop">SFO</span><span class="arw">→</span><span class="stop">HOU</span><span class="arw">→</span><span class="stop">NYC</span><span class="arw">→</span><span class="stop">BOS</span></div>
-      <div class="tagline">行程與時間。棒球、美術館、美食、現場音樂，橫跨東西岸。</div>
+      <div class="tagline">行程與時間</div>
     </header>
     
     
@@ -305,7 +307,7 @@ footer{margin:46px auto 0;width:fit-content;text-align:center;color:var(--muted)
           <div class="day-body">
             <div class="day-top"><span class="day-dow">週三</span>
               <span class="day-date">8/5</span><span class="day-tag">哈佛 · MIT → 回紐約</span></div>
-            <ul class="sched"><li><span class="t">09:30</span><span class="a">🎓 Harvard Yard + 哈佛廣場</span></li><li><span class="t">11:45</span><span class="a">🎓 MIT — Great Dome、Stata Center</span></li><li><span class="t">13:00</span><span class="a">🦞 昆西市場 / 龍蝦堡</span></li><li><span class="t">14:30</span><span class="a">📸 Beacon Hill + Acorn Street — 鵝卵石小街</span></li><li><span class="t">15:45</span><span class="a">📸 查爾斯河畑 Esplanade</span></li><li><span class="t">16:30</span><span class="a">📚 波士頓公共圖書館 — Bates Hall 閱覽室</span></li><li><span class="t">17:35</span><span class="a">🚆 Northeast Regional 177 → 紐約 Penn 21:52 到</span></li></ul>
+            <ul class="sched"><li><span class="t">09:30</span><span class="a">🎓 Harvard Yard + 哈佛廣場</span></li><li><span class="t">11:45</span><span class="a">🎓 MIT — Great Dome、Stata Center</span></li><li><span class="t">13:00</span><span class="a">🦞 昆西市場 / 龍蝦堡</span></li><li><span class="t">14:30</span><span class="a">📸 Beacon Hill + Acorn Street — 鵝卵石小街</span></li><li><span class="t">15:45</span><span class="a">📸 查爾斯河畔 Esplanade</span></li><li><span class="t">16:30</span><span class="a">📚 波士頓公共圖書館 — Bates Hall 閱覽室</span></li><li><span class="t">17:35</span><span class="a">🚆 Northeast Regional 177 → 紐約 Penn 21:52 到</span></li></ul>
             
           </div>
         </article>

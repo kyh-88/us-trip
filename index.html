@@ -72,6 +72,8 @@ h1{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:800;
 .checks label{display:flex;gap:9px;align-items:flex-start;cursor:pointer}
 .checks input{margin-top:2px;width:15px;height:15px;accent-color:var(--ny);flex:none}
 .checks input:checked+span{text-decoration:line-through;color:var(--muted)}
+.plainlist li{padding-left:17px;position:relative}
+.plainlist li::before{content:"\2022";position:absolute;left:3px;color:var(--gold);font-weight:700}
 .notes{margin:0;padding-left:18px;font-size:.86rem;color:var(--muted)}
 .notes li{padding:2px 0}
 
@@ -163,7 +165,7 @@ footer{margin:46px auto 0;width:fit-content;text-align:center;color:var(--muted)
       <h1>Coast to Coast</h1>
       <div class="hero-dates">Jul 24 – Aug 7, 2026</div>
       <div class="route"><span class="stop">SFO</span><span class="arw">→</span><span class="stop">HOU</span><span class="arw">→</span><span class="stop">NYC</span><span class="arw">→</span><span class="stop">BOS</span></div>
-      <div class="tagline">Where we&#x27;re going &amp; when. Baseball, museums, food, live music, and coast-to-coast miles.</div>
+      <div class="tagline">Where we&#x27;re going &amp; when</div>
     </header>
     
     
